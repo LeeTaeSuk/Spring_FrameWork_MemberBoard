@@ -19,18 +19,18 @@ public class BoardController {
     private final BoardService boardService;
     private final CommentService commentService;
 
-    @GetMapping("/save")
+    @GetMapping("/boardSave")
     public String saveForm() {
-        return "save";
+        return "boardSave";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/boardsave")
     public String save(@ModelAttribute BoardDTO boardDTO) {
         int saveResult = boardService.save(boardDTO);
         if (saveResult > 0) {
-            return "redirect:/board/paging";
+            return "redirect:/board/boardPaging";
         } else {
-            return "save";
+            return "boardSave";
         }
     }
 
@@ -38,7 +38,7 @@ public class BoardController {
     public String findAll(Model model) {
         List<BoardDTO> boardDTOList = boardService.findAll();
         model.addAttribute("boardList", boardDTOList);
-        return "list";
+        return "boardList";
     }
 
     @GetMapping
@@ -51,34 +51,34 @@ public class BoardController {
         model.addAttribute("page", page);
         List<CommentDTO> commentDTOList = commentService.findAll(id);
         model.addAttribute("commentList", commentDTOList);
-        return "detail";
+        return "boardDetail";
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/boardDelete")
     public String delete(@RequestParam("id") Long id) {
         boardService.delete(id);
         return "redirect:/board/";
     }
 
-    @GetMapping("/update")
+    @GetMapping("/boardUpdate")
     public String updateForm(@RequestParam("id") Long id, Model model) {
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
-        return "update";
+        return "boardUpdate";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/boardUpdate")
     public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
         boardService.update(boardDTO);
         BoardDTO dto = boardService.findById(boardDTO.getId());
         model.addAttribute("board", dto);
-        return "detail";
+        return "boardDetail";
 //        return "redirect:/board?id="+boardDTO.getId();
     }
 
     // /board/paging?page=2
     // 처음 페이지 요청은 1페이지를 보여줌
-    @GetMapping("/paging")
+    @GetMapping("/boardPaging")
     public String paging(Model model,
                          @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
         System.out.println("page = " + page);
@@ -88,7 +88,7 @@ public class BoardController {
         PageDTO pageDTO = boardService.pagingParam(page);
         model.addAttribute("boardList", pagingList);
         model.addAttribute("paging", pageDTO);
-        return "paging";
+        return "boardPaging";
     }
 
 }
