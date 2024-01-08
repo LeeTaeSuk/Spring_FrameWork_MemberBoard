@@ -1,16 +1,30 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: teasu
-  Date: 2024-01-05
-  Time: 오후 6:50
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>update</title>
 </head>
 <body>
+<form action="/member/memberUpdate" method="post" name="updateForm">
+    id: <input type="text" name="id" value="${member.id}"readonly>
+    email: <input type="text" name="memberEmail" value="${member.memberEmail}"readonly>
+    password: <input type="text" name="memberPassword" id="memberPassword">
+    name: <input type="text" name="memberName" value="${member.memberName}" readonly>
+    age: <input type="text" name="memberAge" value="${member.memberAge}">
+    mobile: <input type="text" name="memberMobile" value="${member.memberMobile}">
+    <input type="button" value="수정" onclick="update()">
 
+</form>
+</div>
 </body>
+<script>
+    const update = () => {
+        const passwordDB = '${member.memberPassword}';
+        const password = document.getElementById("memberPassword").value;
+        if (passwordDB == password) {
+            document.updateForm.submit();
+        } else {
+            alert("비밀번호가 일치하지 않습니다!");
+        }
+    }
+</script>
 </html>

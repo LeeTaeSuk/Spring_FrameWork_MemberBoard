@@ -17,7 +17,7 @@
     </bean>
 
     <!-- 파일 모두 생성했는지 확인 -->
-<!--
+
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value ="classpath:/mybatis-config.xml" />
@@ -27,7 +27,7 @@
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
--->
+
 
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

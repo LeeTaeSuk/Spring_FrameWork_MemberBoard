@@ -1,16 +1,28 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: teasu
-  Date: 2024-01-05
-  Time: 오후 6:51
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>update.jsp</title>
 </head>
 <body>
-
+<form action="/board/boardUpdate" method="post" name="updateForm">
+    <input type="hidden" name="id" value="${board.id}" readonly>
+    <input type="text" name="boardWriter" value="${board.boardWriter}" readonly>
+    <input type="text" name="boardPass" id="boardPass" placeholder="비밀번호">
+    <input type="text" name="boardTitle" value="${board.boardTitle}">
+    <textarea name="boardContents" cols="30" rows="10">${board.boardContents}</textarea>
+    <input type="button" value="수정" onclick="updateReqFn()">
+</form>
+</div>
 </body>
+<script>
+    const updateReqFn = () => {
+        const passInput = document.getElementById("boardPass").value;
+        const passDB = '${board.boardPass}';
+        if (passInput == passDB) {
+            document.updateForm.submit();
+        } else {
+            alert("비밀번호가 일치하지 않습니다!!");
+        }
+    }
+</script>
 </html>
